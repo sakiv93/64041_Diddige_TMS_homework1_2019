@@ -31,11 +31,10 @@ def velocity(burgers_vector,drag_coefficient,shear_stress):
 #Function to plot positions of two dislocations with 
 def plot_trajectories(times,positions):
     positions_plot=np.around(positions,11)
-    plt.xlabel('position of Dislocation [m]')
+    plt.xlabel(r'position of Dislocation [$\mu$m]')
     plt.ylabel('time[ns]')
-    plt.title('trajectory of dislocations (t0:circles,tend:diamonds)')
-    plt.plot(positions[0:],times[0:],'b--',positions[0:1],times[0:1],'g^',positions[-1:],times[-1:],'rs')
-    #plt.plot(positions[1],times[1],'g^')
+    plt.title('$trajectory of dislocations (t_{0}:circles,t_{end}:diamonds)$')
+    plt.plot(positions[0:],times[0:],'b--',positions[0:1],times[0:1],'bo',positions[-1:],times[-1:],'yD')
     #plt.axis([0e-6,0.45e-6,0e-9,10e-9])
     plt.savefig('img.png')
 
@@ -77,8 +76,6 @@ for i in range(math.ceil(number_steps)):
 
 # Calling plot function for plotting purpose
 plotting=plot_trajectories(times,positions)
-
-print(positions[0:1])
 
 
 
