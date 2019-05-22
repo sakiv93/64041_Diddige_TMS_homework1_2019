@@ -33,7 +33,10 @@ def plot_trajectories(times,vels):
     positions_plot=np.around(positions,11)
     plt.xlabel('velocities[m/s]')
     plt.ylabel('time[ns]')
-    plt.plot(vels[1:],times[1:])
+    ax1=plt.subplot(121)
+    ax2=plt.subplot(122)
+    ax2.plot(vels[1:],times[1:])
+    ax1.plot(positions[1:],times[1:])
     #plt.axis([0e-6,0.45e-6,0e-9,10e-9])
     plt.savefig('img.png')
 
