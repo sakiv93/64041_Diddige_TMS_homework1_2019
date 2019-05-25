@@ -35,7 +35,7 @@ poissons_ratio=0.33
 burgers_vector=0.256e-9                                 #m
 drag_coefficient=1e-4                                   #Pa-s
 total_time=10e-9                                        #s
-delta_t=10e-11                                          #s
+delta_t=10e-11                                        #s
 number_steps=total_time/delta_t
 
 #Initial_Values
@@ -64,5 +64,15 @@ for i in range(math.ceil(number_steps)):
     positions=np.append(positions,[final_position],axis=0)
     times=np.append(times,[(i+1)*delta_t],axis=0)
 
+vels_actual=vels[1:]  #Because my first list is zeros which is just taken to initiate my velocity array
+
 print('Initial positions:',initial_position)
-print('Final positions:',positions[-1])
+print('Final positions:',positions[-2])
+
+##Delete below lines
+#print('All positions:',positions)
+#print('velocities:',vels)
+#print(len(positions))
+#print(vels_actual)
+#print(len(vels_actual))
+#print(math.ceil(number_steps))
