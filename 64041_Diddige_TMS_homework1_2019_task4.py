@@ -31,11 +31,13 @@ def velocity(burgers_vector,drag_coefficient,shear_stress,t_ext):
 #Function to plot positions of two dislocations with 
 def plot_trajectories(times,positions):
     positions_plot=np.around(positions,11)
-    plt.xlabel('position of Dislocation [m]')
+    plt.xlabel(r'Position of Dislocation [$\mu$m]')
     plt.ylabel('time[ns]')
-    plt.plot(positions,times)
-    #plt.axis([0e-6,0.45e-6,0e-9,10e-9])
-    plt.savefig('img.png')
+    plt.title('trajectory of dislocations $(t_{0}:circles,t_{end}:diamonds)$')
+    positions_scaled=positions/1e-6         #positions scaled by e-6
+    times_scaled=times/1e-9                 #times scaled by e-9
+    plt.plot(positions_scaled[0:],times_scaled[0:],'b--',positions_scaled[0:1],times_scaled[0:1],'bo',positions_scaled[-1:],times_scaled[-1:],'yD')
+    plt.savefig('Task_4_img.png')
 
 # System_Definition
 system_length_x= 2e-6                                   #m
@@ -73,6 +75,11 @@ for i in range(math.ceil(number_steps)):
     final_position=final_position+delta_t*vel
     positions=np.append(positions,[final_position],axis=0)
     times=np.append(times,[(i+1)*delta_t],axis=0)
+
+vel=velocity(burgers_vector,drag_coefficient,shear_stress,tau_external)
+vels=np.append(vels,[vel],axis=0)
+
+vels_actual=vels[1:]  #Because my first list is zeros which is just taken to initiate my velocity array
 
 # Calling plot function for plotting purpose
 plotting=plot_trajectories(times,positions)

@@ -29,16 +29,21 @@ def velocity(burgers_vector,drag_coefficient,shear_stress,t_ext):
     return velocitys
 
 #Function to plot positions of two dislocations with 
-def plot_trajectories(times,vels):
+def plot_trajectories(times,vels,positions):
     positions_plot=np.around(positions,11)
-    plt.xlabel('velocities[m/s]')
-    plt.ylabel('time[ns]')
-    ax1=plt.subplot(121)
-    ax2=plt.subplot(122)
-    ax2.plot(vels[1:],times[1:])
-    ax1.plot(positions[1:],times[1:])
-    #plt.axis([0e-6,0.45e-6,0e-9,10e-9])
-    plt.savefig('img.png')
+    fig,ax=plt.subplots(ncols=2,figsize=(15,5))
+    ax[1].set_xlabel(r'velocity of Dislocation [m/s]')
+    ax[1].set_ylabel('time[ns]')
+    ax[1].set_title('velocity of dislocations $(t_{0}:circles,t_{end}:diamonds)$')
+    ax[0].set_xlabel(r'Position of Dislocation [$\mu$m]')
+    ax[0].set_ylabel('time[ns]')
+    ax[0].set_title('trajectory of dislocations $(t_{0}:circles,t_{end}:diamonds)$')
+    positions_scaled=positions/1e-6         #positions scaled by e-6
+    times_scaled=times/1e-9                 #times scaled by e-9
+    ax[1].plot(vels[0:],times_scaled[0:],'b--',vels[0:1],times_scaled[0:1],'bo',vels[-1:],times_scaled[-1:],'yD')
+    ax[0].plot(positions_scaled[0:],times_scaled[0:],'b--',positions_scaled[0:1],times_scaled[0:1],'bo',positions_scaled[-1:],times_scaled[-1:],'yD')
+
+    plt.savefig('Task_5c_img.png')
 
 # System_Definition
 system_length_x= 2e-6                                   #m
@@ -46,7 +51,7 @@ shear_modulus= 26e9                                     #Pa
 poissons_ratio=0.33
 burgers_vector=0.256e-9                                 #m
 drag_coefficient=1e-4                                   #Pa-s
-total_time=20e-9                                        #s
+total_time=30e-9                                        #s
 delta_t=10e-11                                          #s
 number_steps=total_time/delta_t
 
@@ -72,13 +77,26 @@ for i in range(math.ceil(number_steps)):
         #Here np.copy is used for call by value purpose in order to prevent function modifying outside variable
         #In internl stress calculation function my initial positions get swapped according to requirement.
     vel=velocity(burgers_vector,drag_coefficient,shear_stress,tau_external)
-    vels=np.append(vels,[vel],axis=0)
+    #vels=np.append(vels,[vel],axis=0)
     final_position=final_position+delta_t*vel
     for j in range(len(initial_position)):
         if final_position[j]<=0:
             final_position[j]=0
+            vel[j]=0
+    vels=np.append(vels,[vel],axis=0)
     positions=np.append(positions,[final_position],axis=0)
     times=np.append(times,[(i+1)*delta_t],axis=0)
 
+#Below velocity function is carried out in order to capture velocity at end of simulation
+vel=velocity(burgers_vector,drag_coefficient,shear_stress,tau_external)
+for j in range(len(initial_position)):
+        if final_position[j]<=0:
+            final_position[j]=0
+            vel[j]=0
+vels=np.append(vels,[vel],axis=0)
+
+vels_actual=vels[1:]  #Because my first list is zeros which is just taken to initiate my velocity array
+
+
 # Calling plot function for plotting purpose
-plotting=plot_trajectories(times,vels)
+plotting=plot_trajectories(times,vels_actual,positions)

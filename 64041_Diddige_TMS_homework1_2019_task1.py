@@ -18,3 +18,7 @@ def get_internal_stress(x_coords,shear_modulus,poissons_ratio,burgers_vector):
             stress_final=stress_final+stress_iteration
         stress=np.append(stress,stress_final)
     return stress
+
+##Delete below lines
+
+print(get_internal_stress(np.array([0,2,3.5,4]),20.,0.3,0.1))
