@@ -28,7 +28,7 @@ def velocity(burgers_vector,drag_coefficient,shear_stress):
         velocitys=np.append(velocitys,velocity)
     return velocitys
 
-#Function to plot positions of two dislocations with 
+#Function to plot positions of two dislocations with time
 def plot_trajectories(times,positions):
     positions_plot=np.around(positions,11)
     plt.xlabel(r'Position of Dislocation [$\mu$m]')
@@ -77,6 +77,7 @@ for i in range(math.ceil(number_steps)):
     positions=np.append(positions,[final_position],axis=0)
     times=np.append(times,[(i+1)*delta_t],axis=0)
 
+#Below velocity function is carried out in order to capture velocity at end of simulation
 vel=velocity(burgers_vector,drag_coefficient,shear_stress)
 vels=np.append(vels,[vel],axis=0)
 

@@ -46,7 +46,7 @@ poissons_ratio=0.33
 burgers_vector=0.256e-9                                 #m
 drag_coefficient=1e-4                                   #Pa-s
 total_time=30e-9                                        #s
-delta_t=10e-11                                         #s
+delta_t=10e-11                                          #s
 number_steps=total_time/delta_t
 
 #Initial_Values
@@ -95,9 +95,3 @@ vels_actual=vels[1:]  #Because my first list is zeros which is just taken to ini
 #Calling plot function for plotting purpose
 plotting=plot_trajectories(times,vels_actual)
 
-
-#Delete below lines
-print('steps',math.ceil(number_steps))
-print(len(vels_actual))
-print(len(times))
-print(vels)

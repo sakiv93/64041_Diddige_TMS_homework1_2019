@@ -96,12 +96,5 @@ vels_actual=vels[1:]  #Because my first list is zeros which is just taken to ini
 # Calling plot function for plotting purpose
 plotting=plot_trajectories(times,positions)
 
-##Delete below lines
-
-#plt.plot(vels_actual[0:],times[0:],'b--',vels_actual[0:1],times[0:1],'bo',vels_actual[-1:],times[-1:],'yD')
-#plt.savefig('img_del.png')
-#print('final position',positions[-1])
-#print('velcity_final',vels_actual[-1])
-
 
 

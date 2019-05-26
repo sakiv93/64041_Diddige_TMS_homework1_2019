@@ -64,19 +64,12 @@ for i in range(math.ceil(number_steps)):
     positions=np.append(positions,[final_position],axis=0)
     times=np.append(times,[(i+1)*delta_t],axis=0)
 
+
+#Below velocity function is carried out in order to capture velocity at end of simulation
 vel=velocity(burgers_vector,drag_coefficient,shear_stress)
 vels=np.append(vels,[vel],axis=0)
 
 vels_actual=vels[1:]  #Because my first list is zeros which is just taken to initiate my velocity array
 
-print('Initial positions:',initial_position)
+print('Initial positions:',positions[0])
 print('Final positions:',positions[-1])
-
-##Delete below lines
-#print('All positions:',positions)
-#print('velocities:',vels)
-#print(len(positions))
-#print(vels_actual)
-#print(len(vels_actual))
-#print(math.ceil(number_steps))
-print(delta_t)
